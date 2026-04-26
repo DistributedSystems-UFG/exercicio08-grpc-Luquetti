@@ -8,17 +8,16 @@ option objc_class_prefix = "TEMP";
 package employee_service;
 
 service EmployeeService {
-  // Create an employee record
   rpc CreateEmployee (EmployeeData) returns (StatusReply) {}
-  // Get an employee´s data
   rpc GetEmployeeDataFromID (EmployeeID) returns (EmployeeData) {}
-  // Update an employee´s title/position
   rpc UpdateEmployeeTitle (EmployeeTitleUpdate) returns (StatusReply) {}
-  // Delete an employee
   rpc DeleteEmployee (EmployeeID) returns (StatusReply) {}
-  // List all employees
   rpc ListAllEmployees (EmptyMessage) returns (EmployeeDataList) {}
-  
+
+  // Novos endpoints
+  rpc SearchByName (EmployeeNameSearch) returns (EmployeeDataList) {}
+  rpc CountEmployees (EmptyMessage) returns (EmployeeCount) {}
+  rpc UpdateEmployeeName (EmployeeNameUpdate) returns (StatusReply) {}
 }
 
 message EmployeeData {
@@ -40,8 +39,22 @@ message EmployeeTitleUpdate {
   string title = 2;
 }
 
-message EmptyMessage{}
+message EmptyMessage {}
 
-message EmployeeDataList{
+message EmployeeDataList {
   repeated EmployeeData employee_data = 1;
+}
+
+// Novas mensagens
+message EmployeeNameSearch {
+  string name = 1;
+}
+
+message EmployeeCount {
+  uint32 count = 1;
+}
+
+message EmployeeNameUpdate {
+  uint32 id = 1;
+  string name = 2;
 }
